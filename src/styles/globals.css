@@ -1,0 +1,13 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    background-color: #00274F;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+}
