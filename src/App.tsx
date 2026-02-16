@@ -14,9 +14,6 @@ export default function App() {
         <Coments foto="src\assets\cara.jpg" nome="Ricardo Siqueira" cargo="Dev Back-end"/>
       </div>
       
-      <div>
-
-      </div>
       
     </div>
     </>
