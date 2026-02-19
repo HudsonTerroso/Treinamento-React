@@ -1,3 +1,5 @@
+import curtido from  '../../assets/Vector.png'
+import normal from '../../assets/Like.png'
 import fotoPadrao from '../../assets/eu.jfif';
 import { useState } from 'react'
 import PrimaryButton from '../PrimaryButton'
@@ -15,12 +17,25 @@ interface Comentario {
     nome: string
     cargo: string
     texto: string
+    criadoEm: string
 }
 
 export default function Coments(props: Coments) {
-
+    const [liked, setLiked] = useState(false);
+    const [count, setCount] = useState(7); 
     const [textoDigitado, setTextoDigitado] = useState("");
     const [listaDeComentarios, setListaDeComentarios] = useState<Comentario[]>([]);
+
+    const toggleLike = () => {
+        if (liked) {
+            setLiked(false);
+            setCount(count - 1);
+        } else {
+            setLiked(true);
+            setCount(count + 1);
+        }
+        setLiked(!liked);
+    };
 
     function Clique() {
         if (textoDigitado.trim() === "") return;
@@ -31,7 +46,8 @@ export default function Coments(props: Coments) {
             foto: fotoPadrao, 
             nome: 'Hudson Terroso', 
             cargo: 'Dev Front-End', 
-            texto: textoDigitado
+            texto: textoDigitado,
+            criadoEm: new Date().toLocaleDateString()
         };
 
         setListaDeComentarios([...listaDeComentarios, novoComentario]);
@@ -78,7 +94,7 @@ export default function Coments(props: Coments) {
                         <img className={styles.fotoComentario} src={coment.foto} alt="" />
                         <div className={styles.containerInfoComentario}>
                             <p className={styles.nomeComentario}><strong>{coment.nome}</strong></p>
-                            <p className={styles.cargoComentario}>{coment.cargo}</p>
+                            <p className={styles.criadoEm}>{coment.criadoEm}</p>
                             <p className={styles.textoComentario}>{coment.texto}</p>
                         </div>
                         <button 
@@ -88,6 +104,14 @@ export default function Coments(props: Coments) {
                         >
                         <img className={styles.imgExcluir} src="src\assets\Trash.png" alt="" />
                         </button>
+                        <button
+                            onClick={toggleLike}
+                        ><img src={liked ? curtido: normal } alt="" 
+                        style={{ width: '24px', height: '24px' }}/></button>
+                        <span
+                        style={{
+                                color: liked? '#007bff' : '#FFFFFF'
+                            }}>Like • {count}</span>
                     </div>
                 ))}
             </div>
